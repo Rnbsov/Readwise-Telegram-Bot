@@ -1,18 +1,26 @@
 import { Bot } from 'grammy'
+import { mainKeyboardLayout } from './src/keyboards'
 
-// Create an instance of the `Bot` class and pass your bot token to it.
-const bot = new Bot(process.env.BOT_TOKEN) // <-- put your bot token between the ""
+const bot = new Bot(process.env.BOT_TOKEN)
 
-// You can now register listeners on your bot object `bot`.
-// grammY will call the listeners when users send messages to your bot.
+bot.command('start', ctx =>
+  ctx.reply(
+    'Welcome! Up and running. \n\n<b>👾 Save a bunch</b> - allows you to save a bunch of urls at once',
+    {
+      reply_markup: mainKeyboardLayout,
+      parse_mode: 'HTML',
+    }
+  )
+)
 
-// Handle the /start command.
-bot.command('start', ctx => ctx.reply('Welcome! Up and running.'))
-// Handle other messages.
-bot.on('message', ctx => ctx.reply('Got another message!'))
+bot.hears('👾 Save a bunch of urls', ctx => {
+  ctx.reply(`Send me urls in following format:
+  
+  url1
+  url2
+  url3
+  
+  each on separate line`)
+})
 
-// Now that you specified how to handle messages, you can start your bot.
-// This will connect to the Telegram servers and wait for messages.
-
-// Start the bot.
 bot.start()
