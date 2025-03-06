@@ -2,6 +2,9 @@
   "name": "readwise-telegram-bot",
   "module": "main.ts",
   "type": "module",
+  "scripts": {
+    "dev": "DEBUG='grammy*' bun --watch main.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
